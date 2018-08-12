@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>test</title>
     <script src="../bower_components/platform/platform.js"></script>
     <link rel="import" href="../api/jscut-cam.html">
     <link rel="import" href="../api/jscut-simulate-gcode.html">
 </head>
+
 <body>
     <svg width="800" height="400" preserveAspectRatio="xMinYMin meet"></svg>
     <br><textarea rows="20" cols="60"></textarea>
     <jscut-simulate-gcode cutterdiameter="3.175" cutterheight="25.4" elementsurl="../elements"></jscut-simulate-gcode>
 
     <script>
-        document.addEventListener('polymer-ready', function () {
+        document.addEventListener('polymer-ready', function() {
             var svg = document.querySelector('svg');
             var svgNS = "http://www.w3.org/2000/svg";
 
@@ -40,9 +42,15 @@
             var r2 = jscut.geometry.translate(r1, 20, 20, 'mm');
             var r3 = jscut.geometry.translate(r2, 20, 20, 'mm');
 
-            addToSvg({ fill: 'red' }, r1);
-            addToSvg({ fill: 'green' }, r2);
-            addToSvg({ fill: 'blue' }, r3);
+            addToSvg({
+                fill: 'red'
+            }, r1);
+            addToSvg({
+                fill: 'green'
+            }, r2);
+            addToSvg({
+                fill: 'blue'
+            }, r3);
 
             function testPreview(svgAttrs, dx, dy, operation, tool) {
                 addToSvg(
@@ -60,22 +68,107 @@
                     jscut.cam.getCamPaths(jscut.data.cleanOperation(operation), jscut.data.cleanTool(tool)));
             }
 
-            testPreview({ fill: 'black' }, 150, 0, { geometries: [r1, r2, r3] });
-            testPreview({ fill: 'black' }, 300, 0, { geometries: [r1, r2, r3], combineOp: "Intersect" });
-            testPreview({ fill: 'black' }, 450, 0, { geometries: [r1, r2, r3], combineOp: "Diff" });
-            testPreview({ fill: 'black' }, 600, 0, { geometries: [r1, r2, r3], combineOp: "Xor" });
+            testPreview({
+                fill: 'black'
+            }, 150, 0, {
+                geometries: [r1, r2, r3]
+            });
+            testPreview({
+                fill: 'black'
+            }, 300, 0, {
+                geometries: [r1, r2, r3],
+                combineOp: "Intersect"
+            });
+            testPreview({
+                fill: 'black'
+            }, 450, 0, {
+                geometries: [r1, r2, r3],
+                combineOp: "Diff"
+            });
+            testPreview({
+                fill: 'black'
+            }, 600, 0, {
+                geometries: [r1, r2, r3],
+                combineOp: "Xor"
+            });
 
-            testPreview({ fill: 'black' }, 150, 150, { geometries: [r1, r2, r3], units: "mm", width: 10, camOp: "Pocket" });
-            testPreview({ fill: 'black' }, 300, 150, { geometries: [r1, r2, r3], units: "mm", width: 10, camOp: "Inside" });
-            testPreview({ fill: 'black' }, 450, 150, { geometries: [r1, r2, r3], units: "mm", width: 10, camOp: "Outside" });
-            testPreview({ fill: 'black' }, 600, 150, { geometries: [r1, r2, r3], units: "mm", width: 10, camOp: "Engrave" });
+            testPreview({
+                fill: 'black'
+            }, 150, 150, {
+                geometries: [r1, r2, r3],
+                units: "mm",
+                width: 10,
+                camOp: "Pocket"
+            });
+            testPreview({
+                fill: 'black'
+            }, 300, 150, {
+                geometries: [r1, r2, r3],
+                units: "mm",
+                width: 10,
+                camOp: "Inside"
+            });
+            testPreview({
+                fill: 'black'
+            }, 450, 150, {
+                geometries: [r1, r2, r3],
+                units: "mm",
+                width: 10,
+                camOp: "Outside"
+            });
+            testPreview({
+                fill: 'black'
+            }, 600, 150, {
+                geometries: [r1, r2, r3],
+                units: "mm",
+                width: 10,
+                camOp: "Engrave"
+            });
 
-            testCamPaths({ fill: 'none', stroke: 'cyan' }, 150, 150, { geometries: [r1, r2, r3], units: "mm", width: 10, camOp: "Pocket" });
-            testCamPaths({ fill: 'none', stroke: 'cyan' }, 300, 150, { geometries: [r1, r2, r3], units: "mm", width: 10, camOp: "Inside" });
-            testCamPaths({ fill: 'none', stroke: 'cyan' }, 450, 150, { geometries: [r1, r2, r3], units: "mm", width: 10, camOp: "Outside" });
-            testCamPaths({ fill: 'none', stroke: 'cyan' }, 600, 150, { geometries: [r1, r2, r3], units: "mm", width: 10, camOp: "Engrave" });
+            testCamPaths({
+                fill: 'none',
+                stroke: 'cyan'
+            }, 150, 150, {
+                geometries: [r1, r2, r3],
+                units: "mm",
+                width: 10,
+                camOp: "Pocket"
+            });
+            testCamPaths({
+                fill: 'none',
+                stroke: 'cyan'
+            }, 300, 150, {
+                geometries: [r1, r2, r3],
+                units: "mm",
+                width: 10,
+                camOp: "Inside"
+            });
+            testCamPaths({
+                fill: 'none',
+                stroke: 'cyan'
+            }, 450, 150, {
+                geometries: [r1, r2, r3],
+                units: "mm",
+                width: 10,
+                camOp: "Outside"
+            });
+            testCamPaths({
+                fill: 'none',
+                stroke: 'cyan'
+            }, 600, 150, {
+                geometries: [r1, r2, r3],
+                units: "mm",
+                width: 10,
+                camOp: "Engrave"
+            });
 
-            var operation = jscut.data.cleanOperation({ geometries: [r1, r2, r3], units: "mm", width: 10, cutDepth: 3.175, name: "Test Operation" });
+            var operation = jscut.data.cleanOperation({
+                geometries: [r1, r2, r3],
+                units: "mm",
+                width: 10,
+                cutDepth: 3.175,
+                name: "Test Operation"
+            });
             var tool = jscut.data.cleanTool();
             var material = jscut.data.cleanMaterial();
             var gcodeOptions = jscut.data.cleanGcodeOptions();
@@ -90,4 +183,5 @@
         });
     </script>
 </body>
+
 </html>

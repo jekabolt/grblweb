@@ -19,6 +19,7 @@ along with jscut.  If not, see <http://www.gnu.org/licenses/>.
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
@@ -31,6 +32,7 @@ along with jscut.  If not, see <http://www.gnu.org/licenses/>.
     <link href="lib/bootstrap-slider.min.css" rel="stylesheet">
     <link href="jscut.css" rel="stylesheet">
 </head>
+
 <body>
     <!-- Save Settings Modal -->
     <div class="modal fade" id="save-settings-modal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -68,7 +70,7 @@ along with jscut.  If not, see <http://www.gnu.org/licenses/>.
                     </h4>
                 </div>
                 <div class="modal-body">
-                  <p>Select settings:<select id="selectSettings" data-bind="options: localStorageSettings, value: loadLocalStorageFilename"></select></p>
+                    <p>Select settings:<select id="selectSettings" data-bind="options: localStorageSettings, value: loadLocalStorageFilename"></select></p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -155,13 +157,12 @@ along with jscut.  If not, see <http://www.gnu.org/licenses/>.
                     </h4>
                 </div>
                 <div class="modal-body alert alert-warning">
-                    <b>Warning</b>: This will create an Anonymous Gist which includes your settings and your SVG files.
-                    Anonymous Gists are public. Anonymous Gists can not be deleted.
+                    <b>Warning</b>: This will create an Anonymous Gist which includes your settings and your SVG files. Anonymous Gists are public. Anonymous Gists can not be deleted.
                     <br /><br />
                     <table class="table">
                         <tr>
                             <td><label for="saveGistDescriptionField">Description</label>
-                            <td><input id="saveGistDescriptionField" data-bind="value: saveGistDescription">
+                                <td><input id="saveGistDescriptionField" data-bind="value: saveGistDescription">
                     </table>
                 </div>
                 <div class="modal-footer">
@@ -212,7 +213,7 @@ along with jscut.  If not, see <http://www.gnu.org/licenses/>.
                             <table class="table">
                                 <tr>
                                     <td><label for="pxPerInch">px per inch</label>
-                                    <td><input type="number" step="any" id="pxPerInch" data-bind="value: svgViewModel.pxPerInch">
+                                        <td><input type="number" step="any" id="pxPerInch" data-bind="value: svgViewModel.pxPerInch">
                             </table>
                             <div style="display: inline-block">
                                 <button id="createOperationButton" class="btn btn-default" data-bind="click: addOperation, enable:selectionViewModel.selNumSelected()>0">Create Operation</button>
@@ -235,7 +236,7 @@ along with jscut.  If not, see <http://www.gnu.org/licenses/>.
                                     <div style="display: table-cell; width: 1px; padding-right: 5px"><input id="opCutDepth" class="number" type="number" step="any" data-bind="visible: camOp()!='V Pocket', value: cutDepth"></div>
                                     <div style="display: table-cell; width: 1px; padding-right: 5px"><label data-bind="visible: camOp()!='V Pocket'" class="control-label">Deep</label></div>
                                     <div style="display: table-cell; width: 1000px; padding-right: 5px; text-align:right"><a id="opGenerate" href="#" data-bind="click: generateToolPath">Generate</a></div>
-                                    </div>
+                                </div>
                                 <div style="display:table-row" class="alert alert-danger" data-bind="visible: enabled() && camOp()=='V Pocket' && !miscViewModel.loadedCamCpp() && miscViewModel.camCppError().length == 0">
                                     <div style="display: table-cell"></div>
                                     <div style="display: table-cell"></div>
@@ -257,36 +258,38 @@ along with jscut.  If not, see <http://www.gnu.org/licenses/>.
                                         <table class="table">
                                             <tr>
                                                 <td><label class="control-label">Name</label>
-                                                <td><input id="opName" data-bind="value: name">
-                                            <tr data-bind="visible: camOp()!='V Pocket'">
-                                                <td><label class="control-label">Ramp Plunge</label>
-                                                <td><input id="opRamp" type="checkbox" data-bind="checked: ramp" />
-                                            <tr>
-                                                <td><label class="control-label">Combine</label>
-                                                <td>
-                                                    <select id="opCombine" data-bind="value: combineOp">
+                                                    <td><input id="opName" data-bind="value: name">
+                                                        <tr data-bind="visible: camOp()!='V Pocket'">
+                                                            <td><label class="control-label">Ramp Plunge</label>
+                                                                <td><input id="opRamp" type="checkbox" data-bind="checked: ramp" />
+                                                                    <tr>
+                                                                        <td><label class="control-label">Combine</label>
+                                                                            <td>
+                                                                                <select id="opCombine" data-bind="value: combineOp">
                                                         <option>Union</option>
                                                         <option>Intersect</option>
                                                         <option>Diff</option>
                                                         <option>Xor</option>
                                                     </select>
-                                            <tr data-bind="visible: camOp()!='V Pocket'">
-                                                <td><label class="control-label">Direction</label>
-                                                <td>
-                                                    <select id="opDirection" data-bind="value: direction">
+                                                                                <tr data-bind="visible: camOp()!='V Pocket'">
+                                                                                    <td><label class="control-label">Direction</label>
+                                                                                        <td>
+                                                                                            <select id="opDirection" data-bind="value: direction">
                                                         <option>Conventional</option>
                                                         <option>Climb</option>
                                                     </select>
-                                            <tr>
-                                                <td><label class="control-label">Units</label>
-                                                <td><select data-bind="value: units"><option>inch<option>mm</select>
-                                            <tr data-bind="visible: camOp()!='Engrave'">
-                                                <td><label class="control-label">Margin</label>
-                                                <td><input id="opMargin" type="number" step="any" data-bind="value: margin">
-                                            <tr data-bind="visible: camOp()=='Inside' || camOp()=='Outside'">
-                                                <td><label class="control-label">Width</label>
-                                                <td><input id="opWidth" type="number" step="any" data-bind="value: width">
-                                            <tr><td><td><a href="#" data-bind="click: $root.removeOperation">Delete Operation</a>
+                                                                                            <tr>
+                                                                                                <td><label class="control-label">Units</label>
+                                                                                                    <td><select data-bind="value: units"><option>inch<option>mm</select>
+                                                                                                        <tr data-bind="visible: camOp()!='Engrave'">
+                                                                                                            <td><label class="control-label">Margin</label>
+                                                                                                                <td><input id="opMargin" type="number" step="any" data-bind="value: margin">
+                                                                                                                    <tr data-bind="visible: camOp()=='Inside' || camOp()=='Outside'">
+                                                                                                                        <td><label class="control-label">Width</label>
+                                                                                                                            <td><input id="opWidth" type="number" step="any" data-bind="value: width">
+                                                                                                                                <tr>
+                                                                                                                                    <td>
+                                                                                                                                        <td><a href="#" data-bind="click: $root.removeOperation">Delete Operation</a>
                                         </table>
                                     </div>
                                 </div>
@@ -312,10 +315,10 @@ along with jscut.  If not, see <http://www.gnu.org/licenses/>.
                             <table class="table">
                                 <tr>
                                     <td><label for="tabsUnits" class="control-label">Units</label>
-                                    <td><select id="tabsUnits" data-bind="value: units"><option>inch<option>mm</select>
-                                <tr>
-                                    <td><label for="tabsMaxCutDepth" class="control-label">Max Cut Depth</label>
-                                    <td><input id="tabsMaxCutDepth" type="number" step="any" data-bind="value: maxCutDepth">
+                                        <td><select id="tabsUnits" data-bind="value: units"><option>inch<option>mm</select>
+                                            <tr>
+                                                <td><label for="tabsMaxCutDepth" class="control-label">Max Cut Depth</label>
+                                                    <td><input id="tabsMaxCutDepth" type="number" step="any" data-bind="value: maxCutDepth">
                             </table>
                             <div style="display: inline-block">
                                 <button id="createTabsButton" class="btn btn-default" data-bind="click: addTab, enable:selectionViewModel.selNumSelected()>0">Create Tabs</button>
@@ -344,35 +347,35 @@ along with jscut.  If not, see <http://www.gnu.org/licenses/>.
                             <table class="table">
                                 <tr>
                                     <td><label for="toolUnits" class="control-label">Units</label>
-                                    <td><select id="toolUnits" data-bind="value: units"><option>inch<option>mm</select>
-                                <tr>
-                                    <td><label for="toolDiameter" class="control-label">Diameter</label>
-                                    <td><span data-bind="text: units"></span>
-                                    <td><input id="toolDiameter" type="number" step="any" data-bind="value: diameter">
-                                <tr>
-                                    <td><label for="toolAngle" class="control-label">Angle</label>
-                                    <td>degrees
-                                    <td><input id="toolAngle" type="number" step="any" data-bind="value: angle">
-                                <tr>
-                                    <td><label for="toolPassDepth" class="control-label">Pass Depth</label>
-                                    <td><span data-bind="text: units"></span>
-                                    <td><input id="toolPassDepth" type="number" step="any" data-bind="value: passDepth">
-                                <tr>
-                                    <td><label for="toolStepOver" class="control-label">Step Over</label>
-                                    <td>(0, 1]
-                                    <td><input id="toolStepOver" type="number" step="any" data-bind="value: stepover">
-                                <tr>
-                                    <td><label for="toolRapidRate" class="control-label">Rapid</label>
-                                    <td><span data-bind="text: units"></span>/min
-                                    <td><input id="toolRapidRate" type="number" step="any" data-bind="value: rapidRate">
-                                <tr>
-                                    <td><label for="toolPlungeRate" class="control-label">Plunge</label>
-                                    <td><span data-bind="text: units"></span>/min
-                                    <td><input id="toolPlungeRate" type="number" step="any" data-bind="value: plungeRate">
-                                <tr>
-                                    <td><label for="toolCutRate" class="control-label">Cut</label>
-                                    <td><span data-bind="text: units"></span>/min
-                                    <td><input id="toolCutRate" type="number" step="any" data-bind="value: cutRate">
+                                        <td><select id="toolUnits" data-bind="value: units"><option>inch<option>mm</select>
+                                            <tr>
+                                                <td><label for="toolDiameter" class="control-label">Diameter</label>
+                                                    <td><span data-bind="text: units"></span>
+                                                        <td><input id="toolDiameter" type="number" step="any" data-bind="value: diameter">
+                                                            <tr>
+                                                                <td><label for="toolAngle" class="control-label">Angle</label>
+                                                                    <td>degrees
+                                                                        <td><input id="toolAngle" type="number" step="any" data-bind="value: angle">
+                                                                            <tr>
+                                                                                <td><label for="toolPassDepth" class="control-label">Pass Depth</label>
+                                                                                    <td><span data-bind="text: units"></span>
+                                                                                        <td><input id="toolPassDepth" type="number" step="any" data-bind="value: passDepth">
+                                                                                            <tr>
+                                                                                                <td><label for="toolStepOver" class="control-label">Step Over</label>
+                                                                                                    <td>(0, 1]
+                                                                                                        <td><input id="toolStepOver" type="number" step="any" data-bind="value: stepover">
+                                                                                                            <tr>
+                                                                                                                <td><label for="toolRapidRate" class="control-label">Rapid</label>
+                                                                                                                    <td><span data-bind="text: units"></span>/min
+                                                                                                                        <td><input id="toolRapidRate" type="number" step="any" data-bind="value: rapidRate">
+                                                                                                                            <tr>
+                                                                                                                                <td><label for="toolPlungeRate" class="control-label">Plunge</label>
+                                                                                                                                    <td><span data-bind="text: units"></span>/min
+                                                                                                                                        <td><input id="toolPlungeRate" type="number" step="any" data-bind="value: plungeRate">
+                                                                                                                                            <tr>
+                                                                                                                                                <td><label for="toolCutRate" class="control-label">Cut</label>
+                                                                                                                                                    <td><span data-bind="text: units"></span>/min
+                                                                                                                                                        <td><input id="toolCutRate" type="number" step="any" data-bind="value: cutRate">
                             </table>
                         </div>
                     </div>
@@ -394,6 +397,7 @@ along with jscut.  If not, see <http://www.gnu.org/licenses/>.
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Open SVG<strong class="caret"></strong></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="#" class="choose-file">Local<input type="file" id="choose-svg-file" multiple></a></li>
+                                    <div id="svgstr"></div>
                                     <li><a href="#" id="openSvgGoogle1" data-bind="visible: enableGoogleDrive" onclick="openSvgGoogle()">Google Drive</a></li>
                                     <li><a href="#" id="openSvgDropbox1" data-bind="visible: enableDropbox" onclick="openSvgDropbox()">Dropbox</a></li>
                                 </ul>
@@ -464,30 +468,30 @@ along with jscut.  If not, see <http://www.gnu.org/licenses/>.
                             <table class="table">
                                 <tr>
                                     <td>
-                                    <td><a href="#" onclick="makeAllSameUnit('mm')">Make all mm</a>
-                                <tr>
-                                    <td>
-                                    <td><a href="#" onclick="makeAllSameUnit('inch')">Make all inch</a>
-                                <tr>
-                                    <td><label for="selectMatUnits">Units</label>
-                                    <td>
-                                        <select id="selectMatUnits" data-bind="value: matUnits">
+                                        <td><a href="#" onclick="makeAllSameUnit('mm')">Make all mm</a>
+                                            <tr>
+                                                <td>
+                                                    <td><a href="#" onclick="makeAllSameUnit('inch')">Make all inch</a>
+                                                        <tr>
+                                                            <td><label for="selectMatUnits">Units</label>
+                                                                <td>
+                                                                    <select id="selectMatUnits" data-bind="value: matUnits">
                                             <option>inch</option>
                                             <option>mm</option>
                                         </select>
-                                <tr>
-                                    <td><label for="inputMatThickness">Thickness</label>
-                                    <td><input type="number" step="any" id="inputMatThickness" data-bind="value: matThickness" placeholder="Thickness">
-                                <tr>
-                                    <td><label for="selectMatZOrigin">Z Origin</label>
-                                    <td>
-                                        <select id="selectMatZOrigin" data-bind="value: matZOrigin">
+                                                                    <tr>
+                                                                        <td><label for="inputMatThickness">Thickness</label>
+                                                                            <td><input type="number" step="any" id="inputMatThickness" data-bind="value: matThickness" placeholder="Thickness">
+                                                                                <tr>
+                                                                                    <td><label for="selectMatZOrigin">Z Origin</label>
+                                                                                        <td>
+                                                                                            <select id="selectMatZOrigin" data-bind="value: matZOrigin">
                                             <option>Top</option>
                                             <option>Bottom</option>
                                         </select>
-                                <tr>
-                                    <td><label for="inputMatClearance">Clearance</label>
-                                    <td><input type="number" step="any" id="inputMatClearance" data-bind="value: matClearance" placeholder="Clearance">
+                                                                                            <tr>
+                                                                                                <td><label for="inputMatClearance">Clearance</label>
+                                                                                                    <td><input type="number" step="any" id="inputMatClearance" data-bind="value: matClearance" placeholder="Clearance">
                             </table>
                         </div>
                     </div>
@@ -505,10 +509,10 @@ along with jscut.  If not, see <http://www.gnu.org/licenses/>.
                                 <table class="table">
                                     <tr>
                                         <td><label for="inputSelMinNumSegments">Minimum Segments</label>
-                                        <td><input type="number" id="inputSelMinNumSegments" data-bind="value: selMinNumSegments" placeholder="Segments">
-                                    <tr>
-                                        <td><label for="inputSelMinSegmentLength">Minimum Segment Length (<span data-bind="text: selMinSegmentLength.units()"></span>)</label>
-                                        <td><input type="number" step="any" id="inputSelMinSegmentLength" data-bind="value: selMinSegmentLength" placeholder="Length">
+                                            <td><input type="number" id="inputSelMinNumSegments" data-bind="value: selMinNumSegments" placeholder="Segments">
+                                                <tr>
+                                                    <td><label for="inputSelMinSegmentLength">Minimum Segment Length (<span data-bind="text: selMinSegmentLength.units()"></span>)</label>
+                                                        <td><input type="number" step="any" id="inputSelMinSegmentLength" data-bind="value: selMinSegmentLength" placeholder="Length">
                                 </table>
                             </div>
                         </div>
@@ -527,28 +531,40 @@ along with jscut.  If not, see <http://www.gnu.org/licenses/>.
                                 <table class="table">
                                     <tr>
                                         <td><label class="control-label">Gcode Units</label>
-                                        <td><select data-bind="value: units"><option>inch<option>mm</select>
-                                    <tr>
-                                        <td>
-                                        <td colspan="2"><a id="gcodeZeroLowerLeft" href="#" data-bind="click: zeroLowerLeft">Zero lower left</a>
-                                    <tr>
-                                        <td>
-                                        <td colspan="2"><a id="gcodeZeroCenter" href="#" data-bind="click: zeroCenter">Zero center</a>
-                                    <tr>
-                                        <td><label for="gcodeReturn00">Return to 0,0 at end</label>
-                                        <td><input id="gcodeReturn00" type="checkbox" data-bind="checked: returnTo00" />
-                                    <tr>
-                                        <td><label for="gcodeOffsetX">X Offset</label>
-                                        <td><span data-bind="text: units" />
-                                        <td><input type="number" step="any" id="gcodeOffsetX" data-bind="value: offsetX">
-                                    <tr>
-                                        <td><label for="gcodeOffsetY">Y Offset</label>
-                                        <td><span data-bind="text: units" />
-                                        <td><input type="number" step="any" id="gcodeOffsetY" data-bind="value: offsetY">
-                                    <tr><td><label class="control-label">Min X</label><td><span data-bind="text: units" /><td><span id="gcodeMinX" data-bind="text: minX" />
-                                    <tr><td><label class="control-label">Max X</label><td><span data-bind="text: units" /><td><span id="gcodeMaxX" data-bind="text: maxX" />
-                                    <tr><td><label class="control-label">Min Y</label><td><span data-bind="text: units" /><td><span id="gcodeMinY" data-bind="text: minY" />
-                                    <tr><td><label class="control-label">Max Y</label><td><span data-bind="text: units" /><td><span id="gcodeMaxY" data-bind="text: maxY" />
+                                            <td><select data-bind="value: units"><option>inch<option>mm</select>
+                                                <tr>
+                                                    <td>
+                                                        <td colspan="2"><a id="gcodeZeroLowerLeft" href="#" data-bind="click: zeroLowerLeft">Zero lower left</a>
+                                                            <tr>
+                                                                <td>
+                                                                    <td colspan="2"><a id="gcodeZeroCenter" href="#" data-bind="click: zeroCenter">Zero center</a>
+                                                                        <tr>
+                                                                            <td><label for="gcodeReturn00">Return to 0,0 at end</label>
+                                                                                <td><input id="gcodeReturn00" type="checkbox" data-bind="checked: returnTo00" />
+                                                                                    <tr>
+                                                                                        <td><label for="gcodeOffsetX">X Offset</label>
+                                                                                            <td><span data-bind="text: units" />
+                                                                                                <td><input type="number" step="any" id="gcodeOffsetX" data-bind="value: offsetX">
+                                                                                                    <tr>
+                                                                                                        <td><label for="gcodeOffsetY">Y Offset</label>
+                                                                                                            <td><span data-bind="text: units" />
+                                                                                                                <td><input type="number" step="any" id="gcodeOffsetY" data-bind="value: offsetY">
+                                                                                                                    <tr>
+                                                                                                                        <td><label class="control-label">Min X</label>
+                                                                                                                            <td><span data-bind="text: units" />
+                                                                                                                                <td><span id="gcodeMinX" data-bind="text: minX" />
+                                                                                                                                    <tr>
+                                                                                                                                        <td><label class="control-label">Max X</label>
+                                                                                                                                            <td><span data-bind="text: units" />
+                                                                                                                                                <td><span id="gcodeMaxX" data-bind="text: maxX" />
+                                                                                                                                                    <tr>
+                                                                                                                                                        <td><label class="control-label">Min Y</label>
+                                                                                                                                                            <td><span data-bind="text: units" />
+                                                                                                                                                                <td><span id="gcodeMinY" data-bind="text: minY" />
+                                                                                                                                                                    <tr>
+                                                                                                                                                                        <td><label class="control-label">Max Y</label>
+                                                                                                                                                                            <td><span data-bind="text: units" />
+                                                                                                                                                                                <td><span id="gcodeMaxY" data-bind="text: maxY" />
                                 </table>
                             </div>
                         </div>
@@ -580,7 +596,9 @@ along with jscut.  If not, see <http://www.gnu.org/licenses/>.
     <script src="js/TabsViewModel.js"></script>
     <script src="js/GcodeConversionViewModel.js"></script>
     <script src="js/jscut.js"></script>
+    <script src="js/portrace.js"></script>
     <script type="text/javascript" src="https://apis.google.com/js/api.js?onload=onGoogleApiLoad"></script>
     <script type="text/javascript" src="https://apis.google.com/js/client.js?onload=onGoogleClientLoad"></script>
 </body>
+
 </html>
