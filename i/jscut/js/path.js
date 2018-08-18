@@ -19,9 +19,9 @@ var jscut = jscut || {};
 jscut.priv = jscut.priv || {};
 jscut.priv.path = jscut.priv.path || {};
 
-(function () {
+(function() {
     "use strict";
-    jscut.priv.path.inchToClipperScale = 100000;                           // Scale inch to Clipper
+    jscut.priv.path.inchToClipperScale = 100000; // Scale inch to Clipper
     jscut.priv.path.cleanPolyDist = jscut.priv.path.inchToClipperScale / 100000;
     jscut.priv.path.arcTolerance = jscut.priv.path.inchToClipperScale / 40000;
 
@@ -60,7 +60,7 @@ jscut.priv.path = jscut.priv.path || {};
 
     // Linearize a path. Both the input path and the returned path are in snap.svg's format.
     // Calls alertFn with an error message and returns null if there's a problem.
-    jscut.priv.path.linearizeSnapPath = function (path, minNumSegments, minSegmentLength, alertFn) {
+    jscut.priv.path.linearizeSnapPath = function(path, minNumSegments, minSegmentLength, alertFn) {
         if (path.length < 2 || path[0].length != 3 || path[0][0] != 'M') {
             alertFn("Path does not begin with M")
             return null;
@@ -90,7 +90,7 @@ jscut.priv.path = jscut.priv.path || {};
     // Get a linear path from an element in snap.svg's format. Calls alertFn with an 
     // error message and returns null if there's a problem. Returns null without calling
     // alertFn if element.type == "svg".
-    jscut.priv.path.getLinearSnapPathFromElement = function (element, minNumSegments, minSegmentLength, alertFn) {
+    jscut.priv.path.getLinearSnapPathFromElement = function(element, minNumSegments, minSegmentLength, alertFn) {
         var path = null;
 
         if (element.type == "svg")
@@ -103,8 +103,7 @@ jscut.priv.path = jscut.priv.path || {};
             var w = Number(element.attr("width"));
             var h = Number(element.attr("height"));
             path = 'm' + x + ',' + y + ' ' + w + ',' + 0 + ' ' + 0 + ',' + h + ' ' + (-w) + ',' + 0 + ' ' + 0 + ',' + (-h) + ' ';
-        }
-        else {
+        } else {
             alertFn("<b>" + element.type + "</b> is not supported; try Inkscape's <strong>Object to Path</strong> command");
             return null;
         }
@@ -133,7 +132,7 @@ jscut.priv.path = jscut.priv.path || {};
     // Convert a path in snap.svg format to Clipper format. May return multiple
     // paths. Only supports linear paths. Calls alertFn with an error message
     // and returns null if there's a problem.
-    jscut.priv.path.getClipperPathsFromSnapPath = function (path, pxPerInch, alertFn) {
+    jscut.priv.path.getClipperPathsFromSnapPath = function(path, pxPerInch, alertFn) {
         function getClipperPointFromSnapPoint(x, y) {
             return {
                 X: Math.round(x * jscut.priv.path.inchToClipperScale / pxPerInch),
@@ -164,7 +163,7 @@ jscut.priv.path = jscut.priv.path || {};
     };
 
     // Convert a set of Clipper paths to a single snap.svg path.
-    jscut.priv.path.getSnapPathFromClipperPaths = function (path, pxPerInch) {
+    jscut.priv.path.getSnapPathFromClipperPaths = function(path, pxPerInch) {
         function pushSnapPointFromClipperPoint(a, p) {
             a.push(p.X * pxPerInch / jscut.priv.path.inchToClipperScale);
             a.push(p.Y * pxPerInch / jscut.priv.path.inchToClipperScale);
@@ -221,7 +220,7 @@ jscut.priv.path = jscut.priv.path || {};
 
     // Convert C format paths to Clipper paths. double**& cPathsRef, int& cNumPathsRef, int*& cPathSizesRef
     // This version assume each point has X, Y (stride = 2).
-    jscut.priv.path.convertPathsFromCpp = function (memoryBlocks, cPathsRef, cNumPathsRef, cPathSizesRef) {
+    jscut.priv.path.convertPathsFromCpp = function(memoryBlocks, cPathsRef, cNumPathsRef, cPathSizesRef) {
         var cPaths = Module.HEAPU32[cPathsRef >> 2];
         memoryBlocks.push(cPaths);
         var cPathsBase = cPaths >> 2;
@@ -256,7 +255,7 @@ jscut.priv.path = jscut.priv.path || {};
 
     // Convert C format paths to array of CamPath. double**& cPathsRef, int& cNumPathsRef, int*& cPathSizesRef
     // This version assume each point has X, Y, Z (stride = 3).
-    jscut.priv.path.convertPathsFromCppToCamPath = function (memoryBlocks, cPathsRef, cNumPathsRef, cPathSizesRef) {
+    jscut.priv.path.convertPathsFromCppToCamPath = function(memoryBlocks, cPathsRef, cNumPathsRef, cPathSizesRef) {
         var cPaths = Module.HEAPU32[cPathsRef >> 2];
         memoryBlocks.push(cPaths);
         var cPathsBase = cPaths >> 2;
@@ -291,14 +290,14 @@ jscut.priv.path = jscut.priv.path || {};
     }
 
     // Simplify and clean up Clipper geometry. fillRule is ClipperLib.PolyFillType.
-    jscut.priv.path.simplifyAndClean = function (geometry, fillRule) {
+    jscut.priv.path.simplifyAndClean = function(geometry, fillRule) {
         geometry = ClipperLib.Clipper.CleanPolygons(geometry, jscut.priv.path.cleanPolyDist);
         geometry = ClipperLib.Clipper.SimplifyPolygons(geometry, fillRule);
         return geometry;
     }
 
     // Clip Clipper geometry. clipType is a ClipperLib.ClipType constant. Returns new geometry.
-    jscut.priv.path.clip = function (paths1, paths2, clipType) {
+    jscut.priv.path.clip = function(paths1, paths2, clipType) {
         var clipper = new ClipperLib.Clipper();
         clipper.AddPaths(paths1, ClipperLib.PolyType.ptSubject, true);
         clipper.AddPaths(paths2, ClipperLib.PolyType.ptClip, true);
@@ -308,12 +307,12 @@ jscut.priv.path = jscut.priv.path || {};
     }
 
     // Return difference between to Clipper geometries. Returns new geometry.
-    jscut.priv.path.diff = function (paths1, paths2) {
+    jscut.priv.path.diff = function(paths1, paths2) {
         return jscut.priv.path.clip(paths1, paths2, ClipperLib.ClipType.ctDifference);
     }
 
     // Offset Clipper geometries by amount (positive expands, negative shrinks). Returns new geometry.
-    jscut.priv.path.offset = function (paths, amount, joinType, endType) {
+    jscut.priv.path.offset = function(paths, amount, joinType, endType) {
         if (typeof joinType == 'undefined')
             joinType = ClipperLib.JoinType.jtRound;
         if (typeof endType == 'undefined')

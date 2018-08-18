@@ -18,11 +18,11 @@
 var jscut = jscut || {};
 jscut.cam = jscut.cam || {};
 
-(function () {
+(function() {
     "use strict";
 
     // Get combined geometry for operation. This uses operation.combineOp to combine multiple geometries in operation.geometries.
-    jscut.cam.getCombinedGeometry = function (operation) {
+    jscut.cam.getCombinedGeometry = function(operation) {
         operation = jscut.data.cleanOperation(operation);
 
         var combineFn;
@@ -49,7 +49,7 @@ jscut.cam = jscut.cam || {};
     }
 
     // Get preview geometry for operation
-    jscut.cam.getPreviewGeometry = function (operation, tool) {
+    jscut.cam.getPreviewGeometry = function(operation, tool) {
         operation = jscut.data.cleanOperation(operation);
         tool = jscut.data.cleanTool(tool);
 
@@ -84,7 +84,7 @@ jscut.cam = jscut.cam || {};
     //      path:               Path data (geometry format)
     //      safeToClose:        Is it safe to close the path without retracting?
     // }
-    jscut.cam.getCamPaths = function (operation, tool) {
+    jscut.cam.getCamPaths = function(operation, tool) {
         operation = jscut.data.cleanOperation(operation);
         tool = jscut.data.cleanTool(tool);
 
@@ -105,8 +105,7 @@ jscut.cam = jscut.cam || {};
             if (width < diameter)
                 width = diameter;
             return jscut.priv.cam.outline(geometry, diameter, operation.camOp == "Inside", width, 1 - tool.stepover, operation.direction == "Climb");
-        }
-        else if (operation.camOp == "Engrave")
+        } else if (operation.camOp == "Engrave")
             return jscut.priv.cam.engrave(geometry, operation.direction == "Climb");
         else {
             console.log("jscut.cam.getPaths: operation.camOp must be 'Pocket', 'Inside', 'Outside', or 'Engrave'");
@@ -115,7 +114,7 @@ jscut.cam = jscut.cam || {};
     }
 
     // Convert cam paths to SVG path data format ('d' attribute).
-    jscut.cam.toSvgPathData = function (camPaths, pxPerInch) {
+    jscut.cam.toSvgPathData = function(camPaths, pxPerInch) {
         var paths = [];
         for (var i = 0; i < camPaths.length; ++i)
             paths.push(camPaths[i].path);
@@ -123,7 +122,7 @@ jscut.cam = jscut.cam || {};
     }
 
     // Get gcode header
-    jscut.cam.getGcodeHeader = function (tool, material, gcodeOptions) {
+    jscut.cam.getGcodeHeader = function(tool, material, gcodeOptions) {
         tool = jscut.data.cleanTool(tool);
         material = jscut.data.cleanMaterial(material);
         gcodeOptions = jscut.data.cleanGcodeOptions(gcodeOptions);
@@ -148,7 +147,7 @@ jscut.cam = jscut.cam || {};
     }
 
     // Get gcode for operation.
-    jscut.cam.getOperationGcode = function (opIndex, operation, tool, material, gcodeOptions, camPaths) {
+    jscut.cam.getOperationGcode = function(opIndex, operation, tool, material, gcodeOptions, camPaths) {
         operation = jscut.data.cleanOperation(operation);
         tool = jscut.data.cleanTool(tool);
         material = jscut.data.cleanMaterial(material);
@@ -165,7 +164,7 @@ jscut.cam = jscut.cam || {};
             topZ = material.thickness * fromMatConv * toGcodeConv;
             botZ = topZ + botZ;
         }
-        
+
         var gcode =
             "\r\n;" +
             "\r\n; Operation:    " + opIndex +

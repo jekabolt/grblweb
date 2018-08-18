@@ -18,11 +18,11 @@
 var jscut = jscut || {};
 jscut.svg = jscut.svg || {};
 
-(function () {
+(function() {
     "use strict";
 
     // Remove all children from an SVG object
-    jscut.svg.clear = function (svg) {
+    jscut.svg.clear = function(svg) {
         while (svg.firstChild)
             svg.removeChild(svg.firstChild);
     }
@@ -30,7 +30,7 @@ jscut.svg = jscut.svg || {};
     // Add geometry to an SVG object. Updates SVG's viewBow. Closes each path if
     // closePaths is true. closePaths defaults to true; set it to false it you're
     // converting CAM paths.
-    jscut.svg.addGeometryToSvg = function (svg, geometry, pxPerInch, attributes, closePaths) {
+    jscut.svg.addGeometryToSvg = function(svg, geometry, pxPerInch, attributes, closePaths) {
         var path = jscut.geometry.toSvgPathObject(geometry, pxPerInch, attributes, closePaths);
         svg.appendChild(path);
         var bbox = svg.getBBox();
@@ -38,7 +38,7 @@ jscut.svg = jscut.svg || {};
     }
 
     // Add cam paths to an SVG object. Updates SVG's viewBow.
-    jscut.svg.addCamPathsToSvg = function (svg, camPaths, pxPerInch, attributes) {
+    jscut.svg.addCamPathsToSvg = function(svg, camPaths, pxPerInch, attributes) {
         var geometry = [];
         for (var i = 0; i < camPaths.length; ++i)
             geometry.push(camPaths[i].path);

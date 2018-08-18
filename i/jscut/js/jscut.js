@@ -16,6 +16,73 @@
 // along with jscut.  If not, see <http://www.gnu.org/licenses/>.
 
 
+function performTask(items, numToProcess, processItem) {
+    var pos = 0;
+    // This is run once for every numToProcess items.
+    function iteration() {
+
+        // Calculate last position.
+        var j = Math.min(pos + numToProcess, items.length);
+        // Start at current position and loop to last position.
+        for (var i = pos; i < j; i++) {
+            processItem(items, i);
+        }
+        // Increment current position.
+        pos += numToProcess;
+        // Only continue if there are more items to process.
+        if (pos < items.length)
+            setTimeout(iteration, 10); // Wait 10 ms to let the UI update.
+    }
+
+    // var element = Snap.getElementByPoint(417, 250);
+    // element.click
+    // operationsViewModel.clickOnSvg(element)
+    // var op = operationsViewModel.addOperation();
+
+    // console.log(element, "---", op)
+
+    //     // var e = mainSvg.e
+    //     // var svg = document.getElementById("svg");
+    //     // var element = Snap.getElementByPoint(500, 500);
+    //     // console.log("--------", svg)
+    // tabsViewModel.clickOnSvg(element)
+    // operationsViewModel.clickOnSvg(element)
+    // operationsViewModel.addOperation()
+    // operationsViewModel.generateToolPath.gcode()
+    // console.log("gcode:", operationsViewModel.generateToolPath
+
+
+    // console.log(operationsViewModel, "kek")
+    // console.log(operationsViewModel.generateToolPath, "kek")
+
+    var element = Snap.getElementByPoint(392, 232);
+    // document.getElementById(element.id).click()
+    console.log(element.id);
+    if (element != null) {
+        operationsViewModel.clickOnSvg(element) || tabsViewModel.clickOnSvg(element) || selectionViewModel.clickOnSvg(element);
+        operationsViewModel.addOperation()
+        operationsViewModel.generateToolPath
+        document.getElementById("opGenerate").click()
+        alert(gcodeConversionViewModel.gcode())
+            // sleep(5000);
+            // console.log("gcode:", gcodeConversionViewModel.gcode())
+
+    }
+
+
+
+    iteration();
+}
+
+function sleep(milliseconds) {
+    var start = new Date().getTime();
+    for (var i = 0; i < 1e7; i++) {
+        if ((new Date().getTime() - start) > milliseconds) {
+            break;
+        }
+    }
+}
+
 function MiscViewModel() {
     var self = this;
     self.enableGoogleDrive = ko.observable(options.enableGoogleDrive);
@@ -316,8 +383,10 @@ function openSvgDropbox() {
     });
 }
 
+//TODO:
 $("#MainSvg").click(function(e) {
     var element = Snap.getElementByPoint(e.pageX, e.pageY);
+    console.log(e.pageX, e.pageY);
     if (element != null) {
         operationsViewModel.clickOnSvg(element) || tabsViewModel.clickOnSvg(element) || selectionViewModel.clickOnSvg(element);
         if (selectionViewModel.selNumSelected() > 0) {

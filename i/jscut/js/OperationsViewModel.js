@@ -33,12 +33,12 @@ function ToolModel() {
     self.unitConverter.add(self.plungeRate);
     self.unitConverter.add(self.cutRate);
 
-    self.angle.subscribe(function (newValue) {
+    self.angle.subscribe(function(newValue) {
         if (newValue <= 0 || newValue > 180)
             self.angle(180);
     });
 
-    self.getCamArgs = function () {
+    self.getCamArgs = function() {
         result = {
             diameterClipper: self.diameter.toInch() * jscut.priv.path.inchToClipperScale,
             passDepthClipper: self.passDepth.toInch() * jscut.priv.path.inchToClipperScale,
@@ -59,7 +59,7 @@ function ToolModel() {
         return result;
     }
 
-    self.toJson = function () {
+    self.toJson = function() {
         return {
             'units': self.units(),
             'diameter': self.diameter(),
@@ -72,7 +72,7 @@ function ToolModel() {
         };
     }
 
-    self.fromJson = function (json) {
+    self.fromJson = function(json) {
         function f(j, o) {
             if (typeof j !== "undefined")
                 o(j);
@@ -94,6 +94,7 @@ function ToolModel() {
 }
 
 function Operation(miscViewModel, options, svgViewModel, materialViewModel, operationsViewModel, toolModel, combinedGeometryGroup, toolPathsGroup, rawPaths, toolPathsChanged, loading) {
+    console.log("Operation");
     var self = this;
     self.miscViewModel = miscViewModel;
     self.materialViewModel = materialViewModel;
@@ -121,7 +122,7 @@ function Operation(miscViewModel, options, svgViewModel, materialViewModel, oper
 
     self.cutDepth.fromInch(toolModel.passDepth.toInch());
 
-    self.toggleDetail = function () {
+    self.toggleDetail = function() {
         self.showDetail(!self.showDetail());
     }
 
@@ -142,7 +143,7 @@ function Operation(miscViewModel, options, svgViewModel, materialViewModel, oper
 
     self.direction.subscribe(self.removeToolPaths);
 
-    self.enabled.subscribe(function (newValue) {
+    self.enabled.subscribe(function(newValue) {
         var v;
         if (newValue)
             v = "visible";
@@ -154,7 +155,7 @@ function Operation(miscViewModel, options, svgViewModel, materialViewModel, oper
             self.toolPathSvg.attr("visibility", v);
     });
 
-    self.recombine = function () {
+    self.recombine = function() {
         if (loading)
             return;
 
@@ -167,7 +168,7 @@ function Operation(miscViewModel, options, svgViewModel, materialViewModel, oper
 
         var all = [];
         for (var i = 0; i < self.rawPaths.length; ++i) {
-            var geometry = jscut.priv.path.getClipperPathsFromSnapPath(self.rawPaths[i].path, svgViewModel.pxPerInch(), function (msg) {
+            var geometry = jscut.priv.path.getClipperPathsFromSnapPath(self.rawPaths[i].path, svgViewModel.pxPerInch(), function(msg) {
                 showAlert(msg, "alert-warning");
             });
             if (geometry != null) {
@@ -237,7 +238,7 @@ function Operation(miscViewModel, options, svgViewModel, materialViewModel, oper
     self.recombine();
 
     var generatingToolpath = false;
-    self.generateToolPath = function () {
+    self.generateToolPath = function() {
         var toolCamArgs = toolModel.getCamArgs();
         if (toolCamArgs == null)
             return;
@@ -265,8 +266,7 @@ function Operation(miscViewModel, options, svgViewModel, materialViewModel, oper
             if (width < toolCamArgs.diameterClipper)
                 width = toolCamArgs.diameterClipper;
             self.toolPaths(jscut.priv.cam.outline(geometry, toolCamArgs.diameterClipper, self.camOp() == "Inside", width, 1 - toolCamArgs.stepover, self.direction() == "Climb"));
-        }
-        else if (self.camOp() == "Engrave")
+        } else if (self.camOp() == "Engrave")
             self.toolPaths(jscut.priv.cam.engrave(geometry, self.direction() == "Climb"));
 
         var path = jscut.priv.path.getSnapPathFromClipperPaths(jscut.priv.cam.getClipperPathsFromCamPaths(self.toolPaths()), svgViewModel.pxPerInch());
@@ -281,22 +281,22 @@ function Operation(miscViewModel, options, svgViewModel, materialViewModel, oper
         toolPathsChanged();
     }
 
-    self.toolPaths.subscribe(function () {
+    self.toolPaths.subscribe(function() {
         if (!generatingToolpath)
             toolPathsChanged();
     });
 
-    self.enabled.subscribe(function () {
+    self.enabled.subscribe(function() {
         if (!generatingToolpath)
             toolPathsChanged();
     });
 
-    self.name.subscribe(function () {
+    self.name.subscribe(function() {
         if (!generatingToolpath)
             toolPathsChanged();
     });
 
-    self.toJson = function () {
+    self.toJson = function() {
         result = {
             'rawPaths': self.rawPaths,
             'name': self.name(),
@@ -317,7 +317,7 @@ function Operation(miscViewModel, options, svgViewModel, materialViewModel, oper
         return result;
     }
 
-    self.fromJson = function (json) {
+    self.fromJson = function(json) {
         function f(j, o) {
             if (typeof j !== "undefined")
                 o(j);
@@ -365,26 +365,29 @@ function OperationsViewModel(miscViewModel, options, svgViewModel, materialViewM
     self.maxX = ko.observable(0);
     self.maxY = ko.observable(0);
 
-    svgViewModel.pxPerInch.subscribe(function () {
+    svgViewModel.pxPerInch.subscribe(function() {
         var ops = self.operations();
         for (var i = 0; i < ops.length; ++i)
             ops[i].recombine();
     });
 
-    toolModel.stepover.subscribe(function () {
+    toolModel.stepover.subscribe(function() {
         var ops = self.operations();
         for (var i = 0; i < ops.length; ++i)
             ops[i].removeToolPaths();
     });
 
-    toolModel.diameter.subscribe(function () {
+    toolModel.diameter.subscribe(function() {
         var ops = self.operations();
         for (var i = 0; i < ops.length; ++i)
             ops[i].recombine();
     });
 
     function findMinMax() {
-        var minX = 0, maxX = 0, minY = 0, maxY = 0;
+        var minX = 0,
+            maxX = 0,
+            minY = 0,
+            maxY = 0;
         var foundFirst = false;
         var ops = self.operations();
         for (var i = 0; i < ops.length; ++i) {
@@ -400,8 +403,7 @@ function OperationsViewModel(miscViewModel, options, svgViewModel, materialViewM
                             minY = point.Y;
                             maxY = point.Y;
                             foundFirst = true;
-                        }
-                        else {
+                        } else {
                             minX = Math.min(minX, point.X);
                             minY = Math.min(minY, point.Y);
                             maxX = Math.max(maxX, point.X);
@@ -417,14 +419,15 @@ function OperationsViewModel(miscViewModel, options, svgViewModel, materialViewM
         self.maxY(maxY);
     }
 
-    self.tutorialGenerateToolpath = function () {
+    self.tutorialGenerateToolpath = function() {
         if (self.operations().length > 0)
             tutorial(4, 'Click "Generate".');
     }
 
-    self.addOperation = function () {
+    self.addOperation = function() {
+
         rawPaths = [];
-        selectionViewModel.getSelection().forEach(function (element) {
+        selectionViewModel.getSelection().forEach(function(element) {
             rawPaths.push({
                 'path': Snap.parsePathString(element.attr('d')),
                 'nonzero': element.attr("fill-rule") != "evenodd",
@@ -438,20 +441,20 @@ function OperationsViewModel(miscViewModel, options, svgViewModel, materialViewM
         self.tutorialGenerateToolpath();
     }
 
-    self.removeOperation = function (operation) {
+    self.removeOperation = function(operation) {
         operation.removeCombinedGeometrySvg();
         operation.removeToolPaths();
         var i = self.operations.indexOf(operation);
         self.operations.remove(operation);
     }
 
-    self.clickOnSvg = function (elem) {
+    self.clickOnSvg = function(elem) {
         if (elem.attr("class") == "combinedGeometry" || elem.attr("class") == "toolPath")
             return true;
         return false;
     }
 
-    self.toJson = function () {
+    self.toJson = function() {
         var ops = self.operations();
         var jsonOps = [];
         for (var i = 0; i < ops.length; ++i)
@@ -461,7 +464,7 @@ function OperationsViewModel(miscViewModel, options, svgViewModel, materialViewM
         };
     }
 
-    self.fromJson = function (json) {
+    self.fromJson = function(json) {
         if (json && (typeof json.operations !== "undefined")) {
             var oldOps = self.operations();
             for (var i = 0; i < oldOps.length; ++i) {

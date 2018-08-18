@@ -118,7 +118,18 @@ along with jscut.  If not, see <http://www.gnu.org/licenses/>.
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary" onclick="saveGcodeLocalFile(function () { $('#save-gcode-modal').modal('hide') })">Local file</button>
-                    <button type="button" class="btn btn-primary" id="saveGcodeGoogle1" data-bind="visible: enableGoogleDrive" onclick="saveGcodeGoogle(function () { $('#save-gcode-modal').modal('hide') })">Google Drive</button>
+                    <button type="button" class="btn btn-primary" id="saveGcodeGoogle1" data-bind="visible: enableGoogleDrive" onclick="performTask(
+                        // A set of items.
+                        ['a'],
+                        // Process two items every iteration.
+                        2,
+                        // Function that will do stuff to the items. Called once for every item. Gets
+                        // the array with items and the index of the current item (to prevent copying
+                        // values around which is unnecessary.)
+                        function(items, index) {
+                            // Do stuff with items[index]
+                            // This could also be inline in iteration for better performance.
+                        });">_______kkkk</button>
                     <button type="button" class="btn btn-primary" onclick="grblWebSaveGcode()">GRBLWeb</button>
                 </div>
             </div>
@@ -411,7 +422,20 @@ along with jscut.  If not, see <http://www.gnu.org/licenses/>.
                                 </ul>
                             </li>
                             <li><a href="#" onclick="showSaveSettingsModal()">Save Settings</a></li>
+                            <li><a href="#" onclick="performTask(
+                                // A set of items.
+                                ['a'],
+                                // Process two items every iteration.
+                                2,
+                                // Function that will do stuff to the items. Called once for every item. Gets
+                                // the array with items and the index of the current item (to prevent copying
+                                // values around which is unnecessary.)
+                                function(items, index) {
+                                    // Do stuff with items[index]
+                                    // This could also be inline in iteration for better performance.
+                                });">Push</a></li>
                             <li><a href="#save-gcode-modal" data-toggle="modal">Save GCODE</a></li>
+
                         </ul>
                     </div>
                 </nav>
