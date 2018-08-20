@@ -61,8 +61,9 @@ function performTask(items, numToProcess, processItem) {
     if (element != null) {
         operationsViewModel.clickOnSvg(element) || tabsViewModel.clickOnSvg(element) || selectionViewModel.clickOnSvg(element);
         operationsViewModel.addOperation()
-        operationsViewModel.generateToolPath
-        document.getElementById("opGenerate").click()
+            // operationsViewModel.operations
+        console.log(operationsViewModel.operations()[0].generateToolPath());
+        // document.getElementById("opGenerate").click()
         alert(gcodeConversionViewModel.gcode())
             // sleep(5000);
             // console.log("gcode:", gcodeConversionViewModel.gcode())
