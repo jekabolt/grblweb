@@ -25,14 +25,14 @@ function SelectionViewModel(svgViewModel, materialViewModel, selectionGroup) {
 
     materialViewModel.unitConverter.add(self.selMinSegmentLength);
 
-    self.clickOnSvg = function (elem) {
+    self.clickOnSvg = function(elem) {
         if (elem.attr("class") == "selectedPath") {
             elem.remove();
             self.selNumSelected(self.selNumSelected() - 1);
             return true;
         }
 
-        var path = jscut.priv.path.getLinearSnapPathFromElement(elem, self.selMinNumSegments(), self.selMinSegmentLength.toInch() * svgViewModel.pxPerInch(), function (msg) {
+        var path = jscut.priv.path.getLinearSnapPathFromElement(elem, self.selMinNumSegments(), self.selMinSegmentLength.toInch() * svgViewModel.pxPerInch(), function(msg) {
             showAlert(msg, "alert-warning");
         });
 
@@ -47,23 +47,23 @@ function SelectionViewModel(svgViewModel, materialViewModel, selectionGroup) {
         return true;
     }
 
-    self.getSelection = function () {
+    self.getSelection = function() {
         return selectionGroup.selectAll("path");
     }
 
-    self.clearSelection = function () {
+    self.clearSelection = function() {
         selectionGroup.selectAll("path").remove();
         self.selNumSelected(0);
     }
 
-    self.toJson = function () {
+    self.toJson = function() {
         return {
             'minNumSegments': self.selMinNumSegments(),
             'minSegmentLength': self.selMinSegmentLength(),
         };
     }
 
-    self.fromJson = function (json) {
+    self.fromJson = function(json) {
         function f(j, o) {
             if (typeof j !== "undefined")
                 o(j);

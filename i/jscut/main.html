@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset=utf-8>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="description" content="vectorizer" />
+    <meta name="keywords" content="potrace,trace,vectorization,svg" />
+
+    <title>vector</title>
+    <link rel="stylesheet" type="text/css" href="main.css">
+</head>
+
+<body>
+    <header>
+        <h1>Vectorization</h1>
+    </header>
+
+    <article>
+
+        <input type="file" id="imageInput" accept="image/*">
+        <div id="drop"><a href="#" id="imageSelect">open an image</a> <br> or drag an image here</div>
+        <div>
+            <a href="#" id="save">download</a>
+        </div>
+        <div id="imgdiv"> </div>
+        <div> </div>
+        <svg id="svgdiv" viewBox="0 0 500 500" preserveAspectRatio="xMinYMin meet" />
+
+        <a href="javascript:void(0)" id="dlbtn"><button>click here to download your file</button></a>
+        <a href="javascript:void(0)" id="act"><button>action</button></a>
+    </article>
+
+    <script src="lib/jquery-2.1.1.min.js"></script>
+    <script src="lib/bootstrap-3.1.1/js/bootstrap.min.js"></script>
+    <script src="lib/bootstrap-slider.min.js"></script>
+    <script src="lib/knockout-3.1.0.js"></script>
+    <script src="lib/snap-0.3.0.svg.js"></script>
+    <script src="lib/clipper_unminified-6.1.3.2.js"></script>
+    <script src="lib/gl-matrix-2.2.0-min.js"></script>
+    <script src="lib/webgl-utils.js"></script>
+    <script src="lib/FileSaver.js"></script>
+    <script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="l00gmdr0kh6ke45"></script>
+    <script src="config.js"></script>
+    <script src="js/path.js"></script>
+    <script src="js/Cam.js"></script>
+    <script src="api/js/parseGcode.js"></script>
+    <script src="js/RenderPath.js"></script>
+    <script src="js/UnitConverter.js"></script>
+    <script src="js/SvgViewModel.js"></script>
+    <script src="js/MaterialViewModel.js"></script>
+    <script src="js/SelectionViewModel.js"></script>
+    <script src="js/OperationsViewModel.js"></script>
+    <script src="js/TabsViewModel.js"></script>
+    <script src="js/GcodeConversionViewModel.js"></script>
+    <script src="js/jscut.js"></script>
+    <script src="js/portrace.js"></script>
+    <script type="text/javascript" src="https://apis.google.com/js/api.js?onload=onGoogleApiLoad"></script>
+    <script type="text/javascript" src="https://apis.google.com/js/client.js?onload=onGoogleClientLoad"></script>
+    <script src="index.js"></script>
+    <script src="upload.js"></script>
+
+</body>
+
+</html>

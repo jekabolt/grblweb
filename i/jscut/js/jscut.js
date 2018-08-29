@@ -54,10 +54,35 @@ function performTask(items, numToProcess, processItem) {
 
     // console.log(operationsViewModel, "kek")
     // console.log(operationsViewModel.generateToolPath, "kek")
+    // console.log("trap", mainSvg);
 
-    var element = Snap.getElementByPoint(392, 232);
-    // document.getElementById(element.id).click()
-    console.log(element.id);
+    var el = document.getElementById("MainSvg")
+        // document.getElementById('MainSvg').style.display = "none";
+        // var sv = Snap.parse(el)
+        // console.log(sv);
+
+    // if (sv != null) {
+    //     operationsViewModel.clickOnSvg(sv) || tabsViewModel.clickOnSvg(sv) || selectionViewModel.clickOnSvg(sv);
+    //     operationsViewModel.addOperation()
+    //         // operationsViewModel.operations
+    //     console.log(operationsViewModel.operations()[0].generateToolPath());
+    //     // document.getElementById("opGenerate").click()
+    //     alert(gcodeConversionViewModel.gcode())
+    //         // sleep(5000);
+    //         // console.log("gcode:", gcodeConversionViewModel.gcode())
+
+    // }
+
+
+    var element = document.getElementById("MainSvg")
+    sr = element.createSVGRect();
+    sr.width = sr.height = 2000;
+    var hits = element.getIntersectionList(sr, null);
+    var target = {}
+    if (hits.length) {
+        target = hits[hits.length - 1];
+    }
+    element = Snap(target);
     if (element != null) {
         operationsViewModel.clickOnSvg(element) || tabsViewModel.clickOnSvg(element) || selectionViewModel.clickOnSvg(element);
         operationsViewModel.addOperation()
@@ -73,6 +98,22 @@ function performTask(items, numToProcess, processItem) {
 
 
     iteration();
+}
+
+function wrap(dom) {
+    if (!dom) {
+        return dom;
+    }
+    if (dom instanceof Element || dom instanceof Fragment) {
+        return dom;
+    }
+    if (dom.tagName && dom.tagName.toLowerCase() == "svg") {
+        return new Paper(dom);
+    }
+    if (dom.tagName && dom.tagName.toLowerCase() == "object" && dom.type == "image/svg+xml") {
+        return new Paper(dom.contentDocument.getElementsByTagName("svg")[0]);
+    }
+    return new Element(dom);
 }
 
 function sleep(milliseconds) {
@@ -133,8 +174,6 @@ function loadScript(path, loadedCallback, errorCallback) {
     }
 
     function handleReadyStateChange() {
-        var state;
-
         if (!done) {
             done = true;
             if (script.readyState === "complete")
@@ -387,7 +426,6 @@ function openSvgDropbox() {
 //TODO:
 $("#MainSvg").click(function(e) {
     var element = Snap.getElementByPoint(e.pageX, e.pageY);
-    console.log(e.pageX, e.pageY);
     if (element != null) {
         operationsViewModel.clickOnSvg(element) || tabsViewModel.clickOnSvg(element) || selectionViewModel.clickOnSvg(element);
         if (selectionViewModel.selNumSelected() > 0) {

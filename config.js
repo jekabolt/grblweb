@@ -1,6 +1,6 @@
 var config = {};
 
-config.webPort = 8880;
+config.webPort = 8888;
 
 config.serialBaudRate = 115200;
 
